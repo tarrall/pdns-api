@@ -1,17 +1,25 @@
 /**
- * Record
- *
- * @module      :: Model
- * @description :: A DNS record, e.g. an A or a PTR record.
- *                 Note one pdns-specific behavior: in order to support DNSSEC, ordername and auth
- *                 columns need to be filled in correctly.
- * @docs		:: http://sailsjs.org/#!documentation/models
- */
+* Record.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
 
 module.exports = {
 
+  // Auto-migrate is fucking retarded.
+  migrate: 'safe',
+  connection: ['postgres'],
+  // tableName: 'records',
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
+
   attributes: {
-    domain_id: 'int',
+    //domain_id: 'int',
+    domain: {
+      model: 'domain',
+      columnName: 'domain_id'
+    },
     name: {
       type: 'string',
       required: true,
@@ -27,9 +35,9 @@ module.exports = {
       required: true,
       maxLength: 255
     },
-    ttl: 'int',
-    prio: 'int',
-    change_date: 'int',
+    ttl: 'integer',
+    prio: 'integer',
+    change_date: 'integer',
     ordername:  {
       type: 'string',
       required: true,
@@ -39,3 +47,4 @@ module.exports = {
   }
 
 };
+
